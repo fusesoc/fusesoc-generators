@@ -45,3 +45,15 @@ generators:
       In addition to the parsed tags, the gitversion generator will also set
       VERSION_REV to the number of commits since the last tag and VERSION_DIRTY if
       it detects that there are local modifications in the repository
+
+  icepll:
+    interpreter: python
+    command: icepll.py
+    description: Generate a parameterized verilog wrapper for an iCE40 PLL
+    usage: |
+      The icepll generator is a simple wrapper around the icepll command
+
+      Parameters:
+        freq_in (int): PLL Input Frequency (default: 12 MHz)
+        freq_out (int) PLL Output Frequency (default: 60 MHz)
+        filename (str): Output filename (default: pll.v)
