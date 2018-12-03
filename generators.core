@@ -57,3 +57,8 @@ generators:
         freq_in (int): PLL Input Frequency (default: 12 MHz)
         freq_out (int) PLL Output Frequency (default: 60 MHz)
         filename (str): Output filename (default: pll.v)
+        module (bool): If true, generate a verilog module which instantiates the PLL.
+                       Otherwise, the user is responsible for instantiating the PLL
+                       and the icepll generator will create a list of parameters that
+                       can be included in the parameter list of the user-instantiated
+                       component (default: false)
