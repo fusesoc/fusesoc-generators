@@ -1,0 +1,16 @@
+{#
+Render a basic Xilinx ISE UCF file
+
+Variables:
+
+clock_name - Name of the clock signal (default: clk)
+clock_freq - Clock frequency in a string like 375 MHz (default: 500 MHz)
+
+-#}
+
+{% set clk = clock_name|default(clk) -%}
+
+
+NET "{{clk}}" TNM_NET = {{clk}};
+TIMESPEC TS_{{clk}} = PERIOD "{{clk}}" {{clock_freq|default("500 MHz")}} HIGH 50%;
+

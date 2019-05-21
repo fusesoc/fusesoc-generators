@@ -1,0 +1,56 @@
+CAPI=2:
+name:        fusesoc:utils:generators_template_constraints:0.1
+description: Simple example of generating SDC and UCF constraints
+
+filesets:
+
+    hdl:
+        files:     [add.v]
+        file_type: verilogSource
+        depend:    ["fusesoc:utils:generators"]
+
+generate:
+
+    ise_constraints:
+        generator: template
+        parameters:
+            output_file:  {name: add.ucf, type: UCF}
+            template:     ucf.j2
+            clock_name: clk
+            clock_freq: "123 MHz"
+
+    quartus_constraints:
+        generator: template
+        parameters:
+            output_file:  {name: add.sdc, type: SDC}
+            template:     sdc.j2
+            clock_name:   clk
+            clock_period: '"234 MHz"'
+            input_delay:  0
+            output_delay: 0
+
+targets:
+
+    default: &default
+        filesets: [hdl]
+        toplevel: [add]
+
+    ise:
+        <<: *default
+        generate: [ise_constraints]
+        default_tool: ise
+        tools:
+            ise:
+                family:  spartan6l
+                device:  XC6SLX75L
+                package: CSG484
+                speed:   "-1L"
+
+    quartus:
+        <<: *default
+        generate: [quartus_constraints]
+        default_tool: quartus
+        tools:
+            quartus:
+                family: "Cyclone V"
+                device: 5CEBA2F17C7

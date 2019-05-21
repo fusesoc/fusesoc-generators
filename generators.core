@@ -62,3 +62,20 @@ generators:
                        and the icepll generator will create a list of parameters that
                        can be included in the parameter list of the user-instantiated
                        component (default: false)
+
+  template:
+    interpreter: python
+    command: template/template_generator.py
+    description: Generate a file from a Jinja template
+    usage: |
+      The template generator uses the provided YAML description to populate
+      a Jinja template.
+
+      The generator requires the following parameters:
+
+        output_file:
+          name:   The file name for the rendered template
+          type:   The file type of the rendered template (vhdlSource, verilogSource, etc.)
+        template: The file name of the template within the templates subdirectory
+
+      Examples of template usage are in The examples directory.
