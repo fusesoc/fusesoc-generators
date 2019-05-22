@@ -78,4 +78,4 @@ generators:
           type:   The file type of the rendered template (vhdlSource, verilogSource, etc.)
         template: The file name of the template within the templates subdirectory
 
-      Examples of template usage are in The examples directory.
+      Examples of template usage are in the examples directory.
