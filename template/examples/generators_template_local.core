@@ -1,0 +1,28 @@
+CAPI=2:
+name:        fusesoc:utils:generators_template_local:0.1
+description: Silly example using a template from a core rather than the generator
+
+filesets:
+
+    tb:
+        files:     [test_add.v]
+        file_type: verilogSource
+        depend:    ["fusesoc:utils:generators"]
+
+generate:
+
+    adder:
+        generator: template
+        parameters:
+            output_file:  {name: my_add.v, type: verilogSource}
+            template:     my_templates/adder.j2
+            clock:        clk
+            adder_name:   my_add
+
+targets:
+
+    default:
+        default_tool: modelsim
+        filesets: [tb]
+        generate: [adder]
+        toplevel: [test_add]
