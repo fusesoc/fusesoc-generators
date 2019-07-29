@@ -10,14 +10,17 @@ class TemplateGenerator(Generator):
         output_file   = self.config.get('output_file')
         template_name = self.config.get('template')
 
-        # Look for Jinja templates from the core or in the "templates"
-        # directory beneath this script's location
-        template_path = [self.files_root]
+        # Allow the user to specify where to look for Jinja templates, but by
+        # default look in the core's directory or in the "templates" directory
+        # beneath this script's location
+        default_template_path = [self.files_root]
 
         script_dir   = os.path.dirname(sys.argv[0])
         template_dir = os.path.join(script_dir, 'templates')
 
-        template_path.append(template_dir)
+        default_template_path.append(template_dir)
+
+        template_path = self.config.get('template_path', default_template_path)
 
         env = Environment(loader=FileSystemLoader(template_path), trim_blocks=True, lstrip_blocks=True)
 
