@@ -15,7 +15,7 @@ class TemplateGenerator(Generator):
         # beneath this script's location
         default_template_path = [self.files_root]
 
-        script_dir   = os.path.dirname(sys.argv[0])
+        script_dir   = os.path.dirname(__file__)
         template_dir = os.path.join(script_dir, 'templates')
 
         default_template_path.append(template_dir)
@@ -30,6 +30,7 @@ class TemplateGenerator(Generator):
 
         self.add_files([{output_file['name'] : {'file_type' : output_file['type']}}])
 
-g = TemplateGenerator()
-g.run()
-g.write()
+if __name__ == '__main__':
+    g = TemplateGenerator()
+    g.run()
+    g.write()
