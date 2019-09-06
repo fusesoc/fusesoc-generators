@@ -48,7 +48,7 @@ class VersionGenerator(Generator):
                             'paramtype' : 'vlogdefine'})
         self.add_parameter('VERSION_SHA',
                            {'datatype' : 'str',
-                            'default'  : sha,
+                            'default'  : str(sha),
                             'paramtype' : 'vlogdefine'})
 
 vg = VersionGenerator()
