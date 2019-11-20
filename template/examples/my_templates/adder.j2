@@ -1,0 +1,20 @@
+{#
+Example of a template that's shipped with a core rather than fusesoc-generators
+
+Required varaibles:
+
+adder_name - The name of the adder module
+clock      - The name of the clock signal
+#}
+module {{ adder_name }} #(
+  parameter WIDTH = 16)
+(
+  input                  {{ clock }},
+  input      [WIDTH-1:0] a, b,
+  output reg [WIDTH:0]   c
+);
+
+  always @(posedge {{ clock }})
+    c <= a + b;
+
+endmodule

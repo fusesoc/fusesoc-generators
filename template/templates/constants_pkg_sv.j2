@@ -1,0 +1,28 @@
+{#
+Render a SystemVerilog package containing constants
+
+Required varaibles:
+
+package_name - The name of the SystemVerilog package
+constants    - A list of dicts each containing a constant's name, type, and value
+
+Example:
+
+    constants_sv:
+        generator: template
+        position:  first
+        parameters:
+            output_file:  {name: constants_pkg.sv, type: systemVerilogSource}
+            template:     constants_pkg_sv.j2
+            package_name: constants_pkg
+            constants:
+                - {name: word_size,  type: int,    value: 48}
+                - {name: iterations, type: int,    value: 123}
+                - {name: low_area,   type: int,    value: 0}
+                - {name: impl,       type: string, value: '"huge"'}
+#}
+package {{ package_name }};
+{% for c in constants %}
+    const {{ c.type }} {{ c.name }} = {{ c.value }};
+{% endfor %}
+endpackage

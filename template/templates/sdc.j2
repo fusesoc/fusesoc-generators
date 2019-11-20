@@ -1,0 +1,18 @@
+{#
+Render a basic Intel Quartus SDC file
+
+Variables:
+
+clock_name   - Name of the clock signal (default: clk)
+clock_period - Quartus supports both a period in ns or a string like "375 MHz" (default: 1.0)
+input_delay  - Value applied with set_input_delay to all inputs (default: 0)
+output_delay - Value applied with set_output_delay to all outputs (default: 0)
+-#}
+
+{% set clk = clock_name|default(clk) -%}
+
+create_clock -name {{clk}} -period {{clock_period|default(1.0)}} [get_ports {{clk}}]
+
+set_input_delay  -clock {{clk}} {{input_delay|default(0)}}  [all_inputs]
+set_output_delay -clock {{clk}} {{output_delay|default(0)}} [all_outputs]
+

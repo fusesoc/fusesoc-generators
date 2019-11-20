@@ -1,0 +1,59 @@
+CAPI=2:
+name:        fusesoc:utils:generators_template_package:0.1
+description: Simple example of generating packages
+
+filesets:
+
+    vhdl:
+        files:     [constants_test.vhd]
+        file_type: vhdlSource-2008
+        depend:    ["fusesoc:utils:generators"]
+
+    sv:
+        files:     [constants_test.sv]
+        file_type: systemVerilogSource
+        depend:    ["fusesoc:utils:generators"]
+
+generate:
+
+    constants_vhdl:
+        generator: template
+        position:  first
+        parameters:
+            output_file:  {name: constants_pkg.vhd, type: vhdlSource}
+            template:     constants_pkg_vhd.j2
+            package_name: constants_pkg
+            constants:
+                - {name: word_size,  type: POSITIVE, value: 32}
+                - {name: iterations, type: POSITIVE, value: 100}
+                - {name: low_area,   type: BOOLEAN,  value: true}
+                - {name: impl,       type: STRING,   value: '"tiny"'}
+
+    constants_sv:
+        generator: template
+        position:  first
+        parameters:
+            output_file:  {name: constants_pkg.sv, type: systemVerilogSource}
+            template:     constants_pkg_sv.j2
+            package_name: constants_pkg
+            constants:
+                - {name: word_size,  type: int,    value: 48}
+                - {name: iterations, type: int,    value: 123}
+                - {name: low_area,   type: int,    value: 0}
+                - {name: impl,       type: string, value: '"huge"'}
+
+targets:
+
+    default: &default
+        default_tool: modelsim
+        toplevel:     [constants_test]
+
+    sim_vhdl:
+        <<: *default
+        filesets: [vhdl]
+        generate: [constants_vhdl]
+
+    sim_sv:
+        <<: *default
+        filesets: [sv]
+        generate: [constants_sv]

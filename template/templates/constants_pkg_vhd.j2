@@ -1,0 +1,30 @@
+{#
+Render a VHDL package containing constants
+
+Required varaibles:
+
+package_name - The name of the VHDL package
+constants    - A list of dicts each containing a constant's name, type, and value
+
+Example:
+
+generate:
+
+    constants_vhdl:
+        generator: template
+        position:  first
+        parameters:
+            output_file:  {name: constants_pkg.vhd, type: vhdlSource}
+            template:     constants_pkg_vhd.j2
+            package_name: constants_pkg
+            constants:
+                - {name: word_size,  type: POSITIVE, value: 32}
+                - {name: iterations, type: POSITIVE, value: 100}
+                - {name: low_area,   type: BOOLEAN,  value: true}
+                - {name: impl,       type: STRING,   value: '"tiny"'}
+#}
+PACKAGE {{ package_name }} IS
+{% for c in constants %}
+  CONSTANT {{ c.name }} : {{ c.type }} := {{ c.value }};
+{% endfor %}
+END PACKAGE;

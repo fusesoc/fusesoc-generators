@@ -1,6 +1,6 @@
 CAPI=2:
 
-name : fusesoc:utils:generators:0.1.4
+name : fusesoc:utils:generators:0.1.5
 
 generators:
   custom:
@@ -62,3 +62,28 @@ generators:
                        and the icepll generator will create a list of parameters that
                        can be included in the parameter list of the user-instantiated
                        component (default: false)
+
+  template:
+    interpreter: python
+    command: template/template_generator.py
+    description: Generate a file from a Jinja template
+    usage: |
+      The template generator uses the provided YAML description to populate
+      a Jinja template.
+
+      The generator requires the following parameters:
+
+        output_file:
+
+          name:   The file name for the rendered template
+          type:   The file type of the rendered template (vhdlSource, verilogSource, etc.)
+
+        template: The file name of the template
+
+        template_path (optional): The directory containing the template.
+
+            If this parameter isn't specified the default is to use the
+            calling core's directory followed by the templates
+            directory for this generator.
+
+      Examples of template usage are in the examples directory.
