@@ -87,3 +87,29 @@ generators:
             directory for this generator.
 
       Examples of template usage are in the examples directory.
+
+  virtual_pins:
+    interpreter: python
+    command: virtual_pins.py
+    description: Generate virtual pin constraints for a design
+    usage: |
+      Generate Quartus VIRTUAL_PIN constraints for all of the pins of a design.
+
+      The Intel example for making all pins virtual [1] requires synthesis to
+      be run. This generator uses a quicker process of just parsing an HDL file.
+
+      [1] https://www.intel.com/content/www/us/en/programmable/support/support-resources/design-examples/design-software/tcl/all_virtual_pins.html
+
+      Parameters:
+
+	  input_file: The HDL file containing the module to be parsed. The most
+                      reliable method is to supply the full absolute path.
+                      Relative paths are assumed to be relative to the core being
+                      built (the FuseSoC files_root variable).
+
+          output_file (optional): The file where the generated TCL will be placed.
+                                  By default this is "virtual_pins.tcl"
+
+          ignored_ports (optional): A list of ports that should be skipped when
+                                    making VIRTUAL_PIN assignments. By default
+                                    this is clk, clock, rst, and reset.
