@@ -102,7 +102,7 @@ generators:
 
       Parameters:
 
-	  input_file: The HDL file containing the module to be parsed. The most
+          input_file: The HDL file containing the module to be parsed. The most
                       reliable method is to supply the full absolute path.
                       Relative paths are assumed to be relative to the core being
                       built (the FuseSoC files_root variable).
