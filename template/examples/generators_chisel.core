@@ -1,0 +1,37 @@
+CAPI=2:
+
+name: test:demo:chiselblinky:0
+
+filesets:
+  polarfireeval:
+    depend: ["fusesoc:utils:generators:0.1.6"]
+    files:
+      - constraints/polarfire_evaluation.pdc: { file_type: PDC }
+
+generate:
+  polarfireeval:
+    generator: chisel
+    parameters:
+      buildtool: mill # Optional, set to mill as default
+      outputdir: . # Optional, set to "generated" as default
+      env: # Optional environment variables
+        BOARD: polarfireeval
+      chiselproject: blinky # Mandatory if using mill
+      copy_core: true # Build from fresh directory
+      output:
+        files:
+          - generated/Toplayer.v: { file_type: verilogSource }
+          - generated/pll_polarfireeval.v: { file_type: verilogSource }
+
+targets:
+  polarfireeval_es:
+    default_tool: libero
+    description: Microsemi Polarfire Evaluation Kit (ES)
+    filesets: [polarfireeval]
+    generate: [polarfireeval]
+    tools:
+      libero:
+        family: PolarFire
+        die: MPF300TS_ES
+        package: FCG1152
+    toplevel: Toplayer
