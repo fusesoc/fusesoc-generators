@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 from fusesoc.capi2.generator import Generator
 import os
 import shutil
@@ -12,6 +12,7 @@ class ChiselGenerator(Generator):
         buildtool = self.config.get('buildtool', "mill")
         chiselproject = self.config.get('chiselproject', None)
         outputdir = self.config.get('outputdir', "generated")
+        extraargs = self.config.get('extraargs', "")
         if buildtool == "mill" and chiselproject == None:
             print("The parameter 'chiselproject' must be defined.")
             exit(1)
@@ -40,11 +41,11 @@ class ChiselGenerator(Generator):
             exit(1)
         print("Using build tool from: " + buildcmd[0])
 
-        # Define command based on build tool
+        # Define command and arguments based on build tool
         if buildtool == "mill":
-            args = [chiselproject + ".run", "--target-dir=" + outputdir]
+            args = ["-i", chiselproject + ".run", "--target-dir=" + outputdir] + extraargs.split(" ")
         elif buildtool == "sbt":
-            args = ["run --target-dir=" + outputdir]
+            args = ["run --target-dir=" + outputdir] + extraargs.split(" ")
 
         # Concatenate environment variables from system + user defined
         d = os.environ
@@ -53,6 +54,10 @@ class ChiselGenerator(Generator):
 
         # Call build tool
         cmd = buildcmd + args
+        if os.getenv('EDALIZE_LAUNCHER'):
+            cmd = [os.getenv('EDALIZE_LAUNCHER')] + cmd
+
+        print("Working dir:", cwd)
         print("Running:", " ".join(cmd))
         rc = subprocess.call(cmd, env=d, cwd=cwd)
 
