@@ -16,6 +16,7 @@ generate:
       outputdir: . # Optional, set to "generated" as default
       env: # Optional environment variables
         BOARD: polarfireeval
+      extraargs: "-board polarfireeval" # Optional arguments to build tool
       chiselproject: blinky # Mandatory if using mill
       copy_core: true # Build from fresh directory
       output:

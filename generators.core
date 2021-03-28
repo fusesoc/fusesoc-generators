@@ -107,6 +107,7 @@ generators:
         outputdir (str): Output directory to be passed to build tool for generated
                          verilog files from Chisel sources. Must match path used in
                          "output: files:" section.
+        extraargs (str): Extra arguments to be passed to the build tool.
         chiselproject (str): Chisel project name to be passed to the build tool.
         copy_core (bool): Copy the working directory to a temporary location and run
                           the command from there
