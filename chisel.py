@@ -2,6 +2,7 @@
 from fusesoc.capi2.generator import Generator
 import os
 import shutil
+import shlex
 import subprocess
 import tempfile
 
@@ -43,9 +44,12 @@ class ChiselGenerator(Generator):
 
         # Define command and arguments based on build tool
         if buildtool == "mill":
-            args = ["-i", chiselproject + ".run", "--target-dir=" + outputdir] + extraargs.split(" ")
+            args = '-i ' + chiselproject + '.run --target-dir='+ outputdir + ' ' + extraargs
         elif buildtool == "sbt":
-            args = ["run --target-dir=" + outputdir] + extraargs.split(" ")
+            args = '"run --target-dir='+outputdir+ ' ' +extraargs+'"'
+
+
+        args = shlex.split(args)
 
         # Concatenate environment variables from system + user defined
         d = os.environ
