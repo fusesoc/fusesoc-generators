@@ -1,6 +1,6 @@
 CAPI=2:
 
-name: fusesoc:utils:generators:0.1.6
+name: fusesoc:utils:generators:0.1.7
 
 generators:
   custom:
