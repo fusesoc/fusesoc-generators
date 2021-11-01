@@ -4,7 +4,7 @@ name: fusesoc:utils:generators:0.1.6
 
 generators:
   custom:
-    interpreter: python
+    interpreter: python3
     command: custom.py
     description: Run custom command
     usage: |
@@ -28,7 +28,7 @@ generators:
                              CAPI2 parameters, which are used by the generated files
 
   gitversion:
-    interpreter: python
+    interpreter: python3
     command: gitversion.py
     description: Parse version tags from git repo
     usage: |
@@ -47,7 +47,7 @@ generators:
       it detects that there are local modifications in the repository
 
   icepll:
-    interpreter: python
+    interpreter: python3
     command: icepll.py
     description: Generate a parameterized verilog wrapper for an iCE40 PLL
     usage: |
@@ -64,7 +64,7 @@ generators:
                        component (default: false)
 
   template:
-    interpreter: python
+    interpreter: python3
     command: template/template_generator.py
     description: Generate a file from a Jinja template
     usage: |
