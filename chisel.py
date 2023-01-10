@@ -44,9 +44,9 @@ class ChiselGenerator(Generator):
 
         # Define command and arguments based on build tool
         if buildtool == "mill":
-            args = '-i ' + chiselproject + '.run --target-dir='+ outputdir + ' ' + extraargs
+            args = '-i ' + chiselproject + '.run ' + extraargs + ' --target-dir='+ outputdir
         elif buildtool == "sbt":
-            args = '"run --target-dir='+outputdir+ ' ' +extraargs+'"'
+            args = '"run' + ' ' + extraargs + '--target-dir='+ outputdir + '"'
 
 
         args = shlex.split(args)
