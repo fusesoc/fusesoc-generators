@@ -62,6 +62,22 @@ generators:
                        and the icepll generator will create a list of parameters that
                        can be included in the parameter list of the user-instantiated
                        component (default: false)
+        use_container (bool): Run icepll tool from a container without installing it
+                              locally. Requires Docker (default: false).
+  ecppll:
+    interpreter: python3
+    command: ecppll.py
+    description: Generate a parameterized verilog wrapper for an ECP5 PLL
+    usage: |
+      The ecppll generator is a simple wrapper around the ecppll command
+
+      Parameters:
+        name (str): PLL module name (default: pll)
+        freq_in (int): PLL Input Frequency (default: 12 MHz)
+        freq_out (int) PLL Output Frequency (default: 60 MHz)
+        filename (str): Output filename (default: pll.v)
+        use_container (bool): Run icepll tool from a container without installing it
+                              locally. Requires Docker (default: false).
 
   template:
     interpreter: python3
