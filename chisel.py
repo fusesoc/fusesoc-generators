@@ -14,6 +14,7 @@ class ChiselGenerator(Generator):
         chiselproject = self.config.get('chiselproject', None)
         outputdir = self.config.get('outputdir', "generated")
         extraargs = self.config.get('extraargs', "")
+        projectdir = self.config.get("projectdir", None)
         if buildtool == "mill" and chiselproject == None:
             print("The parameter 'chiselproject' must be defined.")
             exit(1)
@@ -24,7 +25,7 @@ class ChiselGenerator(Generator):
             shutil.copytree(self.files_root, tmp_dir,
                             ignore=shutil.ignore_patterns('out', 'generated'))
 
-        cwd = tmp_dir if copy_core else self.files_root
+        cwd = (tmp_dir if copy_core else self.files_root) + ("/" + projectdir if projectdir else "")
 
         files = self.config['output'].get('files', [])
         parameters = self.config['output'].get('parameters', {})
