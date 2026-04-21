@@ -5,6 +5,7 @@ import shutil
 import shlex
 import subprocess
 import tempfile
+import glob
 
 
 class ChiselGenerator(Generator):
@@ -69,19 +70,21 @@ class ChiselGenerator(Generator):
         if rc:
             exit(1)
         if cwd:
-            filenames = []
+            expanded = []
             for f in files:
-                for k in f:
-                    filenames.append(k)
+                for pattern, meta in f.items():
+                    matches = glob.glob(os.path.join(cwd, pattern))
 
-            for f in filenames:
-                d = os.path.dirname(f)
-                if d and not os.path.exists(d):
-                    os.makedirs(d)
-                shutil.copy2(os.path.join(cwd, f), f)
+                for src in matches:
+                    rel = os.path.relpath(src, cwd)
+                    d = os.path.dirname(rel)
+                    if d and not os.path.exists(d):
+                        os.makedirs(d)
 
-        self.add_files(files)
+                    shutil.copy2(src, rel)
+                    expanded.append({rel: meta})
 
+        self.add_files(expanded)
         for k, v in parameters.items():
             self.add_parameter(k, v)
 
